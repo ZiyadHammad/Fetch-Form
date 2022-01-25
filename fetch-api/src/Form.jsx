@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import axios from "axios"
 
 
@@ -7,18 +7,31 @@ import axios from "axios"
 
 function Form() {
 
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+    occupation: "",
+    state: ""
+  })
+  
   const getData = async () => {
   let response = await axios.get("https://frontend-take-home.fetchrewards.com/form")
-    console.log(response)
+    let data = response.data
+    console.log(data)
     
 }
 getData()
 
-  return <div className="wrapper">
+  return <div className="form-container">
 
-    <div className="form">
-    Hello,World
-    </div>
+    <form className="register-form">
+      {/* <input
+        className='form-field'
+        value={values.name} */}
+      
+      
+    </form>
     
         </div>;
 }
