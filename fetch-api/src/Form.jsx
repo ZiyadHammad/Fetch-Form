@@ -16,6 +16,7 @@ function Form() {
   })
 
   const [submitted, setSubmitted] = useState(false)
+  const [valid, setValid] = useState(false)
   
   // const getData = async () => {
   // let response = await axios.get("https://frontend-take-home.fetchrewards.com/form")
@@ -34,6 +35,9 @@ function Form() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    if (input.name && input.email && input.password && input.occupation && input.state) {
+      setValid(true)
+    }
     setSubmitted(true)
   }
 
@@ -41,7 +45,7 @@ function Form() {
   return <div className="form-container">
 
     <form className="register-form" onSubmit={handleSubmit}>
-      {submitted ? <div className="succes-message">Success! Thank you for registering</div> : null}
+      {submitted && valid ? <div className="succes-message">Success! Thank you for registering</div> : null}
       <input
         onChange={handleINameChange}
         className='form-field'
