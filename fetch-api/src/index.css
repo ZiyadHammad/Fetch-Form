@@ -38,6 +38,7 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+
 span {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
@@ -49,9 +50,11 @@ input {
   background: #f2f2f2;
 }
 
-.error {
-  border-style: solid;
-  border: 2px solid #ffa4a4;
+.error-message{
+  font-family: "Roboto", sans-serif;
+  background-color: darkred;
+  padding: 15px;
+  color: white;
 }
 
 button {

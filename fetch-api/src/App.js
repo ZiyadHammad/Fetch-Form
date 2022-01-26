@@ -58,7 +58,8 @@ function App() {
   return <div className="form-container">
 
     <form className="register-form" onSubmit={handleSubmit}>
-      {submitted && valid ? <div className="succes-message">Success! Thank you for registering</div> : null}
+      {submitted && valid ? <div className="success-message">Success! Thank you for registering</div> : null}
+      {submitted && !valid ? <div className="error-message">Missing Required Fields!</div> : null}
       <input
         onChange={handleChange}
         className='form-field'
