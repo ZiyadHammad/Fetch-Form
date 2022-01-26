@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import axios from "axios"
 
 
-
+let URL = "https://frontend-take-home.fetchrewards.com/form"
 
 
 function App() {
@@ -15,19 +15,19 @@ function App() {
 
   const [submitted, setSubmitted] = useState(false)
   const [valid, setValid] = useState(false)
-  const [occupation, setOccupation] = ([])
+  const [occupation, setOccupation] = useState([])
+  const [state, setState] = useState([])
   
-  const getData = async () => {
-  let response = await axios.get("https://frontend-take-home.fetchrewards.com/form")
-    let data = response.data
-    console.log(data)
-    // setOccupation(data.occupation)
-    // console.log(setOccupation);
-  }
+  
 
   useEffect(() => {
-    getData()
- 
+    const getData = async () => {
+      let response = await axios.get(URL)
+      setOccupation(response.data.occupations)
+      setState(response.data.states)
+      // console.log(response.data.states)
+      }
+      getData()
   }, [])
  
 
@@ -41,14 +41,27 @@ function App() {
     setInput({...input, password: event.target.value})
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    if (input.name && input.email && input.password && input.occupation && input.state) {
+ 
+
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    const response = await axios.post(URL, {
+      name: input.name,
+      email: input.email,
+      password: input.password,
+      occupation: occupation,
+      state: state
+    })
+    if (input.name && input.email && input.password && occupation && state) {
       setValid(true)
     }
     setSubmitted(true)
+    console.log(response);
+
   }
 
+
+  
 
   return <div className="form-container">
 
@@ -75,20 +88,27 @@ function App() {
         placeholder='Password'
         name="name" />
       {submitted && !input.password ? <span>Please enter a password</span> : null}
-         <select
-        onChange={handleIEmailChange}
-        className='form-field'
-        value={input.email}
-        placeholder='Occupation'
-        name="name" />
-      {submitted && !input.occupation ? <span>Please enter a occupation</span> : null}
-         <select
-        onChange={handleIEmailChange}
-        className='form-field'
-        value={input.email}
-        placeholder='state'
-        name="name" />
-      {submitted && !input.state ? <span>Please enter a state</span> : null}
+      <select className="form-field">
+        <option disabled={true} value="occupation">-- Select Occupation --</option>
+        {
+          occupation.map((occupation, i) =>
+            <option key={i} value={occupation}>{occupation}</option>
+            )
+        }
+       
+        
+         </select>
+      {submitted && !occupation ? <span>Please enter a occupation</span> : null}
+
+      <select className="form-field">
+        <option disabled={true} value="state" >-- Select State --</option>
+        {
+          state.map((state, index) =>
+            <option key={index} value={state.abbreviation}>{state.abbreviation}</option>
+            )
+        }
+         </select>
+      {submitted && !state ? <span>Please enter a state</span> : null}
         
       <button
         className='form-field'
