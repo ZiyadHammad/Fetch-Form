@@ -64,13 +64,16 @@ function App() {
         onChange={handleChange}
         className='form-field'
         value={name}
+        type="text"
         placeholder='Full Name'
         name="name" />
+        
       {submitted && !name ? <span>Please enter a name</span> : null}
        <input
         onChange={handleChange}
         className='form-field'
         value={email}
+        type="email"
         placeholder='Email Address'
         name="email" />
       {submitted && !email ? <span>Please enter a email address</span> : null}
@@ -78,6 +81,7 @@ function App() {
         onChange={handleChange}
         className='form-field'
         value={password}
+        type="password"
         placeholder='Password'
         name="password" />
       {submitted && !password ? <span>Please enter a password</span> : null}
@@ -85,7 +89,7 @@ function App() {
         <option disabled={true} value="occupation">-- Select Occupation --</option>
         {
           occupation.map((occupation, i) =>
-            <option key={i} value={occupation}>{occupation}</option>
+            <option key={i} value="occupation">{occupation}</option>
             )
         }
        
